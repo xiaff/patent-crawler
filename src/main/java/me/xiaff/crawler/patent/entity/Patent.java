@@ -1,9 +1,9 @@
 package me.xiaff.crawler.patent.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,6 +19,8 @@ public class Patent {
     private Integer dataSort;
     private Integer pageCnt;
     private Long refdocCnt;
+
+    @Column(length = 1000)
     private String inventorName;
     private String title;
     private Integer tagNumber;
@@ -37,10 +39,8 @@ public class Patent {
     private String legalStatus;
 
     private Date priorityDate;
-    @Column(length = 50)
-    private String priorityNum;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "longtext")
     private String signory;
 
     @Column(length = 50)
@@ -49,43 +49,37 @@ public class Patent {
     @Column(length = 50)
     private String agencyPersonName;
 
+    private String agencyOrgName;
+
     private String applicantName;
 
     private String classCode;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "longtext")
     private String summary;
 
     private String applicantAddress;
 
+    @Column(length = 50)
+    private String patentType;
+
+    @Column(length = 50)
+    private String pubOrgCode;
+
+    @Column(length = 50)
+    private String searchCode;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
+    private Date updateTime;
+
     public Patent() {
     }
 
-    public Patent(String id, String patentId, Integer dataSort, Integer pageCnt, Long refdocCnt, String inventorName, String title, Integer tagNumber, Date publicationDate, String publicationNum, Date applicationDate, String applicationNum, String applicationNumOld, String legalStatus, Date priorityDate, String priorityNum, String signory, String applicationAreaCode, String agencyPersonName, String applicantName, String classCode, String summary, String applicantAddress) {
-        this.id = id;
-        this.patentId = patentId;
-        this.dataSort = dataSort;
-        this.pageCnt = pageCnt;
-        this.refdocCnt = refdocCnt;
-        this.inventorName = inventorName;
-        this.title = title;
-        this.tagNumber = tagNumber;
-        this.publicationDate = publicationDate;
-        this.publicationNum = publicationNum;
-        this.applicationDate = applicationDate;
-        this.applicationNum = applicationNum;
-        this.applicationNumOld = applicationNumOld;
-        this.legalStatus = legalStatus;
-        this.priorityDate = priorityDate;
-        this.priorityNum = priorityNum;
-        this.signory = signory;
-        this.applicationAreaCode = applicationAreaCode;
-        this.agencyPersonName = agencyPersonName;
-        this.applicantName = applicantName;
-        this.classCode = classCode;
-        this.summary = summary;
-        this.applicantAddress = applicantAddress;
-    }
 
     public String getId() {
         return id;
@@ -207,14 +201,6 @@ public class Patent {
         this.priorityDate = priorityDate;
     }
 
-    public String getPriorityNum() {
-        return priorityNum;
-    }
-
-    public void setPriorityNum(String priorityNum) {
-        this.priorityNum = priorityNum;
-    }
-
     public String getSignory() {
         return signory;
     }
@@ -271,6 +257,54 @@ public class Patent {
         this.applicantAddress = applicantAddress;
     }
 
+    public String getAgencyOrgName() {
+        return agencyOrgName;
+    }
+
+    public void setAgencyOrgName(String agencyOrgName) {
+        this.agencyOrgName = agencyOrgName;
+    }
+
+    public String getPatentType() {
+        return patentType;
+    }
+
+    public void setPatentType(String patentType) {
+        this.patentType = patentType;
+    }
+
+    public String getPubOrgCode() {
+        return pubOrgCode;
+    }
+
+    public void setPubOrgCode(String pubOrgCode) {
+        this.pubOrgCode = pubOrgCode;
+    }
+
+    public String getSearchCode() {
+        return searchCode;
+    }
+
+    public void setSearchCode(String searchCode) {
+        this.searchCode = searchCode;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         return "Patent{" +
@@ -289,14 +323,19 @@ public class Patent {
                 ", applicationNumOld='" + applicationNumOld + '\'' +
                 ", legalStatus='" + legalStatus + '\'' +
                 ", priorityDate=" + priorityDate +
-                ", priorityNum='" + priorityNum + '\'' +
                 ", signory='" + signory + '\'' +
                 ", applicationAreaCode='" + applicationAreaCode + '\'' +
                 ", agencyPersonName='" + agencyPersonName + '\'' +
+                ", agencyOrgName='" + agencyOrgName + '\'' +
                 ", applicantName='" + applicantName + '\'' +
                 ", classCode='" + classCode + '\'' +
                 ", summary='" + summary + '\'' +
                 ", applicantAddress='" + applicantAddress + '\'' +
+                ", patentType='" + patentType + '\'' +
+                ", pubOrgCode='" + pubOrgCode + '\'' +
+                ", searchCode='" + searchCode + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
